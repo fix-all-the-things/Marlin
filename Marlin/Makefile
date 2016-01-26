@@ -49,7 +49,7 @@ AVR_TOOLS_PATH ?=
 
 #Programmer configuration
 UPLOAD_RATE        ?= 57600
-AVRDUDE_PROGRAMMER ?= wiring
+AVRDUDE_PROGRAMMER ?= arduino
 # on most linuxes this will be /dev/ttyACM0 or /dev/ttyACM1 
 UPLOAD_PORT        ?= /dev/ttyUSB0
 
