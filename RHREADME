@@ -1,0 +1,34 @@
+Works with arduino-1.0.6-3.fc23.noarch.rpm
+
+Requires arduino from
+
+https://reprapworld.com/?software
+
+cp -R arduino-1.6.3-linux64/hardware/arduino/avr/variants/minitronics/ /usr/share/arduino/hardware/arduino/variants
+
+make should just work afterwards
+
+
+/etc/arduino/boards.txt entry (only when using arduino IDE)
+
+################################################
+mega1281.name=Minitronics
+
+mega1281.upload.protocol=arduino
+mega1281.upload.maximum_size=126976
+mega1281.upload.speed=57600
+mega1281.upload.tool=avrdude
+
+mega1281.bootloader.tool=avrdude
+mega1281.bootloader.low_fuses=0xFF
+mega1281.bootloader.high_fuses=0xDA
+mega1281.bootloader.extended_fuses=0xF5
+mega1281.bootloader.path=atmega
+mega1281.bootloader.file=ATmegaBOOT_168_atmega1281.hex
+mega1281.bootloader.unlock_bits=0x3F
+mega1281.bootloader.lock_bits=0x0F
+
+mega1281.build.mcu=atmega1281
+mega1281.build.f_cpu=16000000L
+mega1281.build.core=arduino
+mega1281.build.variant=minitronics
