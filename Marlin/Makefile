@@ -37,12 +37,12 @@
 # from the commandline with "make HARDWARE_MOTHERBOARD=71" for example
 
 # This defined the board you are compiling for (see boards.h for the options)
-HARDWARE_MOTHERBOARD ?= 11
+HARDWARE_MOTHERBOARD ?= 702
 
 # Arduino source install directory, and version number
 # On most linuxes this will be /usr/share/arduino
 ARDUINO_INSTALL_DIR  ?= /usr/share/arduino
-ARDUINO_VERSION      ?= 105
+ARDUINO_VERSION      ?= 106
 
 # You can optionally set a path to the avr-gcc tools. Requires a trailing slash. (ex: /usr/local/avr-gcc/bin)
 AVR_TOOLS_PATH ?=
@@ -51,7 +51,7 @@ AVR_TOOLS_PATH ?=
 UPLOAD_RATE        ?= 115200
 AVRDUDE_PROGRAMMER ?= wiring
 # on most linuxes this will be /dev/ttyACM0 or /dev/ttyACM1 
-UPLOAD_PORT        ?= /dev/arduino
+UPLOAD_PORT        ?= /dev/ttyACM0
 
 #Directory used to build files in, contains all the build files, from object files to the final hex file
 #on linux it is best to put an absolute path like /home/username/tmp .
@@ -211,6 +211,12 @@ else ifeq  ($(HARDWARE_MOTHERBOARD),68)
 HARDWARE_VARIANT ?= arduino
 MCU              ?= atmega2560
 
+# Minitronics
+else ifeq  ($(HARDWARE_MOTHERBOARD),702)
+HARDWARE_VARIANT ?= arduino
+HARDWARE_SUB_VARIANT ?= minitronics
+MCU              ?= atmega1281
+
 endif
 
 # Be sure to regenerate speed_lookuptable.h with create_speed_lookuptable.py
@@ -232,6 +238,7 @@ HARDWARE_DIR = ../ArduinoAddons/Arduino_0.xx
 endif
 endif
 HARDWARE_SRC = $(HARDWARE_DIR)/$(HARDWARE_VARIANT)/cores/arduino
+#HARDWARE_SRC = $(HARDWARE_DIR)/$(HARDWARE_VARIANT)/avr/cores/arduino
 
 TARGET = $(notdir $(CURDIR))
 
@@ -378,7 +385,7 @@ AVRDUDE_CONF = /etc/avrdude/avrdude.conf
 else
 AVRDUDE_CONF = $(ARDUINO_INSTALL_DIR)/hardware/tools/avr/etc/avrdude.conf
 endif
-AVRDUDE_FLAGS = -D -C$(AVRDUDE_CONF) \
+AVRDUDE_FLAGS = -D \
 	-p$(MCU) -P$(AVRDUDE_PORT) -c$(AVRDUDE_PROGRAMMER) \
 	-b$(UPLOAD_RATE)
 
